@@ -1,0 +1,16 @@
+.DS_Store
+wing_demo.MOV
+tmp/
+node_modules/
+/demos/
+wing_demo.mov
+method_animation/*.mov
+
+# Local authoring files and superseded web assets
+*.pptx
+wing_logo.pdf
+method_animation/
+assets/wing-demo.mp4
+assets/wing-demo-4k.mp4
+assets/wing-end-frame.png
+assets/wing-poster.jpg
