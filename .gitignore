@@ -14,3 +14,6 @@ assets/wing-demo.mp4
 assets/wing-demo-4k.mp4
 assets/wing-end-frame.png
 assets/wing-poster.jpg
+
+# Original ego clip exceeds the GitHub per-file limit; publish the web copy.
+/assets/ego_video1.mp4

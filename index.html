@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=method-compact-20260930">
-  <script src="script.js?v=single-bar-20260930" defer></script>
+  <link rel="stylesheet" href="styles.css?v=motivation-20260930">
+  <script src="script.js?v=motivation-20260930" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#abstract">Skip to abstract</a>
@@ -107,11 +107,45 @@
         </video>
         <figcaption class="method-playback"><button id="method-toggle" type="button" aria-controls="method-video">Play animation</button></figcaption>
       </figure>
-      <div class="method-explanation" id="method-description">
-        <p><strong>Separate interaction from camera motion.</strong> WING-LAM uses geometric motion cues to separate camera movement from hand–object interactions, then distills the interaction signal into an RGB-only latent action model.</p>
-        <p><strong>Keep the dynamics that transfer.</strong> A temporal discrete cosine transform (DCT) extracts low-frequency components of latent action sequences—the slowly varying structure shared by human and robot interactions.</p>
-        <p><strong>Predict guidance, generate actions.</strong> At inference time, a lightweight predictor estimates this spectral latent action from the current image, instruction, and robot state. The action model attends to the predicted guidance to generate fine-grained robot controls.</p>
-        <p class="method-training">The video backbone and guidance predictor are pretrained on human videos, then adapted with the action model on robot demonstrations. Future frames provide training targets; inference uses only the current context.</p>
+      <div class="method-story" id="method-description">
+        <section class="method-chapter" aria-labelledby="motivation-one-title">
+          <div class="method-explanation">
+            <p class="eyebrow">MOTIVATION 1</p>
+            <h3 id="motivation-one-title">Head motion in egocentric videos</h3>
+            <p>Egocentric videos capture rich hand–object interactions, but the camera also moves with the wearer's head. Looking around or leaning forward shifts the entire scene, mixing observer motion with the motion of the hands and objects.</p>
+          </div>
+          <div class="ego-examples">
+            <figure class="ego-example">
+              <video muted playsinline preload="none" data-ego-src="assets/method/ego-head-motion-1.mp4" poster="assets/method/ego-head-motion-1.jpg" aria-label="First egocentric video illustrating head and camera motion"></video>
+              <figcaption><span>Egocentric view 01</span><button type="button" class="ego-toggle">Play video</button></figcaption>
+            </figure>
+            <figure class="ego-example">
+              <video muted playsinline preload="none" data-ego-src="assets/ego_video2.mp4" poster="assets/method/ego-head-motion-2.jpg" aria-label="Second egocentric video illustrating head and camera motion"></video>
+              <figcaption><span>Egocentric view 02</span><button type="button" class="ego-toggle">Play video</button></figcaption>
+            </figure>
+          </div>
+          <div class="method-explanation">
+            <p>A latent action model trained to reconstruct the next frame must explain both kinds of change. Its encoding can therefore absorb head motion alongside the interaction itself. This observer-specific motion does not describe the manipulation skill we want a robot to learn, and can obscure the action information that should transfer.</p>
+            <p class="method-insight"><strong>Our goal:</strong> preserve hand–object interaction dynamics while reducing the influence of the camera wearer's motion.</p>
+          </div>
+        </section>
+        <section class="method-chapter" aria-labelledby="wing-lam-title">
+          <div class="method-explanation">
+            <p class="eyebrow">OUR SOLUTION</p>
+            <h3 id="wing-lam-title">WING-LAM: interaction-centric latent actions</h3>
+            <p>WING-LAM explicitly separates camera motion from interaction motion, then distills the interaction representation into a latent action model that takes only RGB frame pairs.</p>
+          </div>
+          <figure class="teaser-frame wing-lam-frame">
+            <a href="assets/wing-lam.pdf" target="_blank" rel="noopener" aria-label="Open the WING-LAM architecture figure as a PDF"><img src="assets/method/wing-lam.png" width="2400" height="590" loading="lazy" alt="WING-LAM: geometric routing separates interaction and background tracks into interaction and camera latent branches; the interaction representation is distilled into a model trained on original and camera-warped RGB frame pairs."></a>
+            <figcaption>Geometric routing separates the two motion sources; interaction distillation transfers the useful signal into an RGB-only model.</figcaption>
+          </figure>
+          <div class="method-explanation wing-lam-steps">
+            <p><strong>1. Separate the motion signals.</strong> Point tracks and hand–object region masks distinguish background motion from interaction motion. Background tracks estimate a global camera warp. Compensating for this warp reveals the residual motion associated with hand–object interactions.</p>
+            <p><strong>2. Learn two latent branches.</strong> A teacher model encodes camera motion and interaction motion separately. The camera branch predicts the global warp, while the interaction branch predicts the residual displacements. Together, their decoded motions reconstruct the observed point movements.</p>
+            <p><strong>3. Distill the interaction representation.</strong> An RGB-only student learns the teacher's interaction latent from frame pairs. We also apply camera-like warps that preserve the interaction target, encouraging the student to produce consistent latent actions despite changes in viewpoint. The resulting model extracts interaction-centric latent actions without requiring point tracks or region masks as inputs.</p>
+            <p class="method-insight">These latent actions preserve manipulation structure with less sensitivity to observer motion, providing the foundation for WING's spectral latent guidance.</p>
+          </div>
+        </section>
       </div>
     </section>
     <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction knowledge from human experience.</p></div><a class="paper-link" href="main.pdf" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>

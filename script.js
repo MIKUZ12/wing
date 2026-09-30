@@ -304,3 +304,37 @@ methodToggle.addEventListener('click', () => {
   }
 });
 document.addEventListener('visibilitychange', playVisibleMethod);
+
+// Egocentric examples play independently when scrolled into view.
+document.querySelectorAll('.ego-example').forEach(figure => {
+  const clip = figure.querySelector('video');
+  const button = figure.querySelector('.ego-toggle');
+  let visible = false;
+  let manuallyPaused = false;
+  const updateLabel = () => { button.textContent = clip.ended ? 'Replay video' : clip.paused ? 'Play video' : 'Pause video'; };
+  const updatePlayback = () => {
+    if (visible && !document.hidden && !manuallyPaused && !clip.ended) {
+      if (!clip.getAttribute('src')) clip.src = clip.dataset.egoSrc;
+      clip.muted = true;
+      clip.play().catch(updateLabel);
+    } else clip.pause();
+  };
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const entering = entry.isIntersecting && !visible;
+      visible = entry.isIntersecting;
+      if (entering) {
+        manuallyPaused = false;
+        if (clip.ended) clip.currentTime = 0;
+      }
+      updatePlayback();
+    });
+  }, { threshold: .2 }).observe(clip);
+  button.addEventListener('click', () => {
+    manuallyPaused = !clip.paused;
+    if (clip.ended) clip.currentTime = 0;
+    updatePlayback();
+  });
+  ['play', 'pause', 'ended'].forEach(event => clip.addEventListener(event, updateLabel));
+  document.addEventListener('visibilitychange', updatePlayback);
+});
