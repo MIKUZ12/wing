@@ -294,7 +294,7 @@ body:has(.demo-dialog[open]){overflow:hidden}
 .result-pair{gap:14px;margin-block:22px 32px}
 .result-pair .result-chart{padding:12px 14px}
 .result-pair .result-heading{min-height:0;margin-bottom:7px}
-.result-pair .result-heading h4{font-size:17px;line-height:1.2;min-height:41px;margin-bottom:3px}
+.result-pair .result-heading h4{font-size:17px;line-height:1.2;min-height:0;margin-bottom:3px}
 .result-pair .result-heading a{font-size:9px}
 .result-pair .result-toolbar{min-height:0;gap:5px}
 .result-pair .result-toolbar label{font-size:11px;gap:7px}
@@ -315,7 +315,19 @@ body:has(.demo-dialog[open]){overflow:hidden}
 }
 @media(min-width:801px){
 .result-pair .diagnostic-chart .result-heading h4{min-height:0}
-.result-pair .diagnostic-svg{height:210px;margin-top:0}
+.result-pair .diagnostic-svg{height:240px;margin-top:0}
 .result-pair #motion-decodability .diagnostic-svg{margin-top:27px}
 .result-pair .diagnostic-svg text{font-size:14px}
 }
+
+/* Chapter transitions and the four-question roadmap. */
+.reading-content > #method{padding-bottom:38px}
+.reading-content > #experiments{border-top:1px solid #dfe4dc;padding-top:38px}
+#spectral-guidance .method-insight:last-child{margin-bottom:0}
+.experiments-section > .section-intro{margin-bottom:18px}
+.experiment-questions{list-style:none;padding:0;margin:0;display:grid;gap:12px;font:18px/1.5 'Source Serif 4',Georgia,serif;color:#536158}
+.experiment-questions a{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline}
+.experiment-questions span{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:#39799f}
+.experiment-questions a:hover{color:#246b9d}
+#transfer-structure{padding-top:34px}
+@media(max-width:800px){.experiment-questions{font-size:16px;gap:10px}.reading-content > #method{padding-bottom:28px}.reading-content > #experiments{padding-top:28px}}

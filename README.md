@@ -114,7 +114,6 @@ Q1 is a two-by-two grid corresponding to all four Figure 3 panels. Camera
 sensitivity means and standard deviations come directly from the local source
 `../graph/camera_sensitivity_with_std.py`. The motion-decoding panel preserves
 qualitative relative positions from Figure 3(a), whose axes do not label absolute
-R² coordinates; the web panel explicitly states this and exposes no invented
-numeric values. Replace its schematic coordinates when original data is supplied.
+R² coordinates; the web panel exposes no invented numeric values and uses a descriptive caption. Replace its schematic coordinates when original data is supplied.
 All reading sections and chart/figure containers are constrained to the same
 960px text width; paired charts stack on narrow screens.

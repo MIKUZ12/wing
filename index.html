@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=q1-balanced-4">
-  <script src="experiments.js?v=2" defer></script>
+  <link rel="stylesheet" href="styles.css?v=section-rhythm-5">
+  <script src="experiments.js?v=3" defer></script>
   <script src="script.js?v=spectral-interactive-1" defer></script>
 </head>
 <body>
@@ -201,6 +201,12 @@
       <p class="eyebrow">FROM REPRESENTATIONS TO ROBOT CONTROL</p>
       <h2 id="experiments-title">What WING does</h2>
       <p class="section-intro">Four questions about learning from human experience—and turning it into robot actions.</p>
+      <ol class="experiment-questions" aria-label="Four experimental questions">
+        <li><a href="#transfer-structure"><span>Q1</span>What structures in egocentric latent actions reveal transferable interaction knowledge?</a></li>
+        <li><a href="#robot-performance"><span>Q2</span>Can WING effectively transfer latent action knowledge to improve robot performance?</a></li>
+        <li><a href="#component-analysis"><span>Q3</span>How do interaction-centric latent actions and spectral latent action guidance contribute?</a></li>
+        <li><a href="#ego-pretraining"><span>Q4</span>How effective is WING’s pretraining strategy for downstream robot policy learning?</a></li>
+      </ol>
       <section class="experiment-chapter" id="transfer-structure" aria-labelledby="q1-title">
         <div class="experiment-copy"><p class="eyebrow">QUESTION 01 · TRANSFERABLE STRUCTURE</p><h3 id="q1-title">What is worth transferring?</h3>
         <p>Useful latent actions should describe the interaction, rather than the observer’s movement. WING-LAM preserves action semantics while reducing camera-motion information and sensitivity to camera perturbations. Its frozen representations achieve the highest average action-classification accuracy in this comparison.</p></div>
