@@ -30,6 +30,11 @@
   addViews('components',suites,['Neither','WING-LAM only','DCT only','Both'],[[99.2,97.2,96.2,92.6,65,36],[98,99.2,95.6,94.2,67.5,40.3],[99.2,98.2,98,96.2,71.3,43],[99.6,100,99.2,96.2,72.5,45]],{highlight:'Both'});
   addViews('bandwidth',suites.slice(0,4),['K = 2','K = 8 (full)','K = 4'],[[97.2,98.6,95.2,94],[98.2,99.4,95.6,95.2],[99.6,100,99.2,96.2]],{highlight:'K = 4'});
   addViews('pretraining',suites,['Hand-pose','Video-only','Latent action · no debiasing','Latent action','WING · no debiasing','WING'],[[98.2,99.4,97.4,96.2,72.5,40],[96.6,98.8,96,91.4,60,38],[94.2,96.4,92,84.4,58.8,30],[94,98.8,92.4,85.2,60,35.5],[98.6,98.4,97.6,96.4,68.8,41],[99,100,98.8,99,75,49.5]]);
+  // Panel-specific ranges retain every reported value and label the actual axes.
+  Object.assign(datasets.semantics.views[0], {min:10,max:60,ticks:[10,20,30,40,50,60]});
+  Object.assign(datasets.similarity.views[0], {min:0,max:.6,ticks:[0,.2,.4,.6]});
+  Object.assign(datasets.similarity.views[1], {min:0,max:.2,ticks:[0,.05,.1,.15,.2]});
+  [[96,97,98,99,100],[98,98.5,99,99.5,100],[94,96,98,100],[93,94,95,96,97]].forEach((ticks,i)=>Object.assign(datasets.bandwidth.views[i], {min:ticks[0],max:ticks[ticks.length-1],ticks}));
   const esc = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
   // Reuse the verified simulation values; each benchmark is a native HTML table.
   const tableGroups = [
@@ -77,12 +82,14 @@
     }
     function render() {
       const view=data.views[Number(select.value)], fmt=v=>v.toFixed(view.decimals)+view.unit;
+      const min=view.min ?? 0, range=view.max-min;
+      const ticks=view.ticks ?? [0,.2,.4,.6,.8,1].map(f=>min+f*range);
       const focus=view.highlight || (key==='semantics'?'WING-LAM':'WING');
       card.querySelector('.result-view-label').textContent=view.label;
       plot.style.setProperty('--chart-columns',view.rows.length);
       plot.style.minWidth=card.dataset.viewIndex!==undefined?'0':`${Math.max(360,view.rows.length*(card.closest('.result-pair')?56:91)+44)}px`;
-      plot.innerHTML=`<div class="result-grid" aria-hidden="true">${[1,.8,.6,.4,.2,0].map(f=>`<span style="bottom:${f*100}%"><b>${+(f*view.max).toFixed(2)}${view.unit==='%'?'%':''}</b></span>`).join('')}</div><div class="result-bars">${view.rows.map(([name,value])=>`<button class="result-bar ${name===focus?'is-focus':''}" type="button" style="--bar-height:${value/view.max*100}%" aria-label="${esc(name)}: ${fmt(value)}; ${esc(view.label)}"><span class="result-column"><span class="result-fill"><span class="result-number">${value.toFixed(view.decimals)}</span></span></span><span class="result-name">${esc(name)}</span></button>`).join('')}</div>`;
-      const defaultText=view.unit==='%' && key!=='semantics' ? 'SR (%) · 0–100 scale. Hover, focus, or tap a bar for its exact value.' : `${view.unit===' / 10'?'Progress score':'%'===view.unit?(key==='semantics'?'Classification accuracy (%)':'Success rate (%)'):'Semantic similarity'} · ${0}–${view.max} scale. Hover, focus, or tap a bar for its exact value.`;
+      plot.innerHTML=`<div class="result-grid" aria-hidden="true">${[...ticks].reverse().map(t=>`<span style="bottom:${(t-min)/range*100}%"><b>${+t.toFixed(2)}${view.unit==='%'?'%':''}</b></span>`).join('')}</div><div class="result-bars">${view.rows.map(([name,value])=>`<button class="result-bar ${name===focus?'is-focus':''}" type="button" style="--bar-height:${(value-min)/range*100}%" aria-label="${esc(name)}: ${fmt(value)}; ${esc(view.label)}"><span class="result-column"><span class="result-fill"><span class="result-number">${value.toFixed(view.decimals)}</span></span></span><span class="result-name">${esc(name)}</span></button>`).join('')}</div>`;
+      const defaultText=`${view.unit==='%'?(key==='semantics'?'Classification accuracy (%)':'SR (%)'):'Semantic similarity'} · ${min}–${view.max} scale${min>0?' (truncated)':''}. Hover, focus, or tap a bar for its exact value.`;
       readout.textContent=defaultText;
       const bars=[...plot.querySelectorAll('.result-bar')];
       function highlight(button,i){bars.forEach(b=>b.classList.toggle('is-selected',b===button));readout.textContent=`${view.rows[i][0]} — ${fmt(view.rows[i][1])} · ${view.label}`;}

@@ -134,3 +134,8 @@ are visible without a selector. WING uses blue, its no-debiasing variant light b
 and other strategies gray. LIBERO uses labeled, truncated axes: Spatial 90–100%, Object 95–100%, Goal
 90–100%, Long 80–100%. Real-world Standard uses 55–80% and Generalization uses 25–55%. Bar lengths are
 normalized within each panel; all original values remain visible.
+
+Q1 classification uses a labeled 10–60% axis. Semantic similarity uses 0–0.6
+for matched pairs and 0–0.2 for mismatched pairs. Bandwidth panels use labeled
+96–100%, 98–100%, 94–100%, and 93–97% ranges; all bars are normalized to their
+own panel range and nonzero baselines are marked as truncated.
