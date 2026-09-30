@@ -121,3 +121,9 @@ All reading sections and chart/figure containers are constrained to the same
 The DCT bandwidth ablation uses four fixed LIBERO suite charts in a centered
 2×2 grid capped at 840px (narrower than the 960px text column). The spectral
 method illustration advances every two seconds while visible and playing.
+
+The component ablation is a four-row native table grouped into Components, LIBERO,
+and Real-world columns. It reuses all 24 Table 3 values, bolds column maxima
+(including ties), and highlights the complete configuration. Its 900px cap keeps
+it slightly narrower than the text column. The takeaway compares both components
+against neither: +7.5 pp standard, +9.0 pp generalization, without ego pretraining.

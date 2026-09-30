@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=bandwidth-grid-8">
-  <script src="experiments.js?v=sr-label-8" defer></script>
+  <link rel="stylesheet" href="styles.css?v=component-table-9">
+  <script src="experiments.js?v=component-table-9" defer></script>
   <script src="script.js?v=spectral-2s" defer></script>
 </head>
 <body>
@@ -223,7 +223,7 @@
       <section class="experiment-chapter" id="component-analysis" aria-labelledby="q3-title">
         <div class="experiment-copy"><p class="eyebrow">QUESTION 03 · CORE COMPONENTS</p><h3 id="q3-title">Why do both components matter?</h3>
         <p>Interaction-centric encoding and spectral guidance make complementary contributions. These controlled ablations exclude egocentric WAM pretraining. Without WING-LAM, we use DreamDojo’s latent encoder; without DCT, we guide the policy with the full time-domain latent trajectory.</p></div>
-        <div class="result-chart" data-chart="components"></div>
+        <div class="component-table-panel" id="component-table-panel"></div>
         <div class="experiment-copy"><h4>Enough temporal structure, without the full spectrum</h4><p>Keeping four DCT coefficients performs best across all four LIBERO suites. Two coefficients remove useful dynamics; keeping all eight introduces higher-frequency variation without improving control.</p></div>
         <div class="bandwidth-overview" aria-label="DCT bandwidth ablation on four LIBERO suites">
           <div class="bandwidth-grid">

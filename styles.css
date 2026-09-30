@@ -397,3 +397,22 @@ body:has(.demo-dialog[open]){overflow:hidden}
 .bandwidth-caption strong{color:#276f9b}.bandwidth-caption a{text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 @media(max-width:700px){.bandwidth-overview{width:100%}.bandwidth-grid{gap:12px}.bandwidth-grid .result-chart{padding:14px 10px}.bandwidth-grid .result-name{font-size:10px}.bandwidth-grid .result-number{font-size:10px}}
 @media(max-width:520px){.bandwidth-grid{grid-template-columns:1fr}.bandwidth-overview{width:94%}}
+
+/* Four component combinations, read together rather than selected separately. */
+.component-table-panel{width:94%;max-width:900px;margin:28px auto 40px;padding:22px;border:1px solid #d4d8cc;border-radius:6px;background:#efefe7;font-family:'Source Serif 4',Georgia,serif}
+.component-table-panel .result-heading{margin-bottom:18px}
+.component-table-panel .result-heading h4{font-size:23px;line-height:1.3}
+.component-table-scroll{overflow-x:auto;scrollbar-color:#bbc4b3 transparent}
+.component-table-panel table{width:100%;min-width:580px;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;text-align:center}
+.component-table-caption{caption-side:top;text-align:left;color:#75816c;font-size:12px;padding-bottom:16px}
+.component-table-panel th,.component-table-panel td{padding:12px 8px;border-bottom:1px solid #d9ded1;white-space:nowrap}
+.component-table-panel thead tr:first-child th{font-size:16px;font-weight:500;color:#4c6049;border-top:1px solid #acb8a4}
+.component-table-panel thead tr:last-child th{font-size:12px;font-weight:400;color:#6e7b65;border-bottom:1px solid #acb8a4}
+.component-table-panel tr>:nth-child(3),.component-table-panel tr>:nth-child(7){border-left:1px solid #d9ded1}
+.component-table-panel thead tr:first-child th+th{border-left:1px solid #d9ded1}
+.component-table-panel tbody tr:hover{background:#e6eadd}
+.component-table-panel tbody tr:last-child>*{border-bottom:0}
+.component-table-panel .component-complete>*{background:#e0ebee;color:#276f9b;border-top:1px solid #b2cbd4}
+.component-on{color:#38769a;font-size:16px}.component-off{color:#929b8a;font-size:15px}
+.component-takeaway{font-size:15px;line-height:1.55;color:#68785e;margin:16px 0 0}.component-takeaway strong{color:#276f9b;font-weight:600}
+@media(max-width:700px){.component-table-panel{width:100%;padding:18px 14px}.component-table-panel .result-heading{display:block}.component-table-panel .result-heading h4{font-size:21px;margin-bottom:8px}.component-table-panel table{font-size:12px}.component-table-panel th,.component-table-panel td{padding:10px 7px}.component-takeaway{font-size:13px}}
