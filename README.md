@@ -90,3 +90,7 @@ git push origin main
 方法总览动画下按头部运动问题、两段 egocentric 示例、编码与迁移问题、WING-LAM 解决方法展开。WING-LAM 图来自 `assets/wing-lam.pdf`，按 CropBox 导出为 `assets/method/wing-lam.png`，点击可查看原 PDF。正文按论文第 3.2 节介绍几何运动分离、双分支教师和 RGB 学生蒸馏。
 
 `assets/ego_video1.mp4` 原片超过 GitHub 单文件限制，仅保留本地；网页使用 `assets/method/ego-head-motion-1.mp4`，保留 1920×1080 和原时间轴，H.264 CRF 17，最大码率 9 Mbps / 缓冲 18 Mbps。`assets/ego_video2.mp4` 直接使用原始 320×180 文件，未转码。示例进入视口自动静音播放，离开暂停；可通过各自的按钮暂停或重播。
+
+## 阅读目录
+
+正文采用左侧粘性分层目录，包含 At a Glance、Methodology（Motivation 1、WING-LAM）、Abstract、BibTeX。滚动时只标记当前子章节；移动端折叠为 On this page。封面布局独立保持全宽。WING-LAM 图框最大宽度与正文一致，均为 960px。

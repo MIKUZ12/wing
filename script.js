@@ -338,3 +338,30 @@ document.querySelectorAll('.ego-example').forEach(figure => {
   ['play', 'pause', 'ended'].forEach(event => clip.addEventListener(event, updateLabel));
   document.addEventListener('visibilitychange', updatePlayback);
 });
+
+// Keep the contents rail in document order, with one active subsection.
+const contentsMenu = document.querySelector('.contents-menu');
+const sidebarLinks = [...document.querySelectorAll('.sidebar-nav a')];
+const sidebarTargets = sidebarLinks.map(link => document.querySelector(link.hash));
+const desktopContents = matchMedia('(min-width: 1101px)');
+function setContentsMode() { contentsMenu.open = desktopContents.matches; }
+setContentsMode();
+desktopContents.addEventListener('change', setContentsMode);
+let contentsPending = false;
+function updateContents() {
+  const threshold = document.querySelector('.header').offsetHeight + 110;
+  let active = 0;
+  sidebarTargets.forEach((target, index) => { if (target.getBoundingClientRect().top <= threshold) active = index; });
+  if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) active = sidebarLinks.length - 1;
+  sidebarLinks.forEach((link, index) => {
+    if (index === active) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+  document.querySelectorAll('.sidebar-nav > ul > li').forEach(item => item.classList.toggle('is-active-group', item.contains(sidebarLinks[active])));
+  contentsPending = false;
+}
+window.addEventListener('scroll', () => { if (!contentsPending) { contentsPending = true; requestAnimationFrame(updateContents); } }, { passive: true });
+window.addEventListener('resize', updateContents);
+window.addEventListener('pageshow', updateContents);
+sidebarLinks.forEach(link => link.addEventListener('click', () => { if (!desktopContents.matches) contentsMenu.open = false; }));
+updateContents();
