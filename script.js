@@ -165,9 +165,8 @@ function showBenchmarkTooltip(row, event) {
   if (detail.note) add('p', detail.note, 'tip-note');
   add('p', detail.source, 'tip-source');
   comparison.classList.add('has-highlight');
-  const method = detail.method.replace('†', '');
   benchmarkRows.forEach(other => {
-    other.classList.toggle('is-highlighted', benchmarkDetails.get(other).method.replace('†', '') === method);
+    other.classList.toggle('is-highlighted', other === row);
     other.removeAttribute('aria-describedby');
   });
   row.setAttribute('aria-describedby', 'benchmark-tooltip');
