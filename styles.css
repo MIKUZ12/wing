@@ -379,3 +379,21 @@ body:has(.demo-dialog[open]){overflow:hidden}
 .real-world-panel .result-note{font-size:12px}.real-mobile-hint{display:none}
 @media(max-width:1100px){.real-mobile-hint{display:block;font:10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#7c8972;margin:12px 0 0}}
 @media(max-width:700px){.real-world-panel{padding:18px 14px}.real-world-panel .result-heading{display:block}.real-world-panel .result-heading h4{font-size:23px;margin-bottom:8px}.real-legend{justify-content:flex-start;gap:10px 16px}.real-detail{min-height:40px}}
+
+/* A narrower four-suite ablation gives the experiment section a lighter rhythm. */
+.bandwidth-overview{width:90%;max-width:840px;margin:26px auto 40px}
+.bandwidth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.bandwidth-grid .result-chart{margin:0;padding:16px 18px;min-width:0}
+.bandwidth-grid .result-heading{margin-bottom:0}
+.bandwidth-grid .result-heading h4{font-size:20px;font-weight:500}
+.bandwidth-grid .result-heading a,.bandwidth-grid .result-toolbar,.bandwidth-grid .result-view-label,.bandwidth-grid .result-note,.bandwidth-grid .result-swipe{display:none}
+.bandwidth-grid .result-scroll{padding-top:28px;overflow:visible}
+.bandwidth-grid .result-plot{height:176px;margin-top:0}
+.bandwidth-grid .result-grid,.bandwidth-grid .result-column{height:140px}
+.bandwidth-grid .result-number{font-size:11px}
+.bandwidth-grid .result-name{font-size:12px;padding-top:8px}
+.bandwidth-grid .result-readout{font-size:11px;line-height:1.4;min-height:40px;margin:8px 0 0;padding-top:9px}
+.bandwidth-caption{font:italic 13px/1.5 'Source Serif 4',Georgia,serif;color:#73806a;margin:12px 0 0;text-align:center}
+.bandwidth-caption strong{color:#276f9b}.bandwidth-caption a{text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+@media(max-width:700px){.bandwidth-overview{width:100%}.bandwidth-grid{gap:12px}.bandwidth-grid .result-chart{padding:14px 10px}.bandwidth-grid .result-name{font-size:10px}.bandwidth-grid .result-number{font-size:10px}}
+@media(max-width:520px){.bandwidth-grid{grid-template-columns:1fr}.bandwidth-overview{width:94%}}

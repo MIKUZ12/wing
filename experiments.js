@@ -52,15 +52,19 @@
     const clear=()=>{button.classList.remove('is-selected');};button.addEventListener('pointerleave',clear);button.addEventListener('blur',clear);
   });
   document.querySelectorAll('[data-chart]').forEach((card) => {
-    const key=card.dataset.chart, data=datasets[key], id='chart-view-'+key;
+    const key=card.dataset.chart, data=datasets[key], id='chart-view-'+key+(card.dataset.viewIndex!==undefined?'-'+card.dataset.viewIndex:'');
     card.innerHTML=`<div class="result-heading"><h4>${data.title}</h4><a href="main.pdf#page=${data.page}" target="_blank" rel="noopener">${data.source} ↗</a></div><div class="result-toolbar"><label for="${id}">View <select id="${id}">${data.views.map((v,i)=>`<option value="${i}">${esc(v.label)}</option>`).join('')}</select></label><div class="result-legend"><span><i></i>Comparison</span><span><i class="result-blue"></i>WING / focus</span></div></div><p class="result-view-label"></p><div class="result-scroll" tabindex="0" role="region" aria-label="Scrollable chart"><div class="result-plot"></div></div><p class="result-swipe">Swipe horizontally to compare all methods →</p><p class="result-readout" aria-live="polite"></p><p class="result-note">${data.note}</p>`;
     const select=card.querySelector('select'), plot=card.querySelector('.result-plot'), readout=card.querySelector('.result-readout');
+    if (card.dataset.viewIndex !== undefined) {
+      select.value=card.dataset.viewIndex;
+      card.querySelector('.result-heading h4').textContent=data.views[Number(select.value)].label.replace('LIBERO · ', '');
+    }
     function render() {
       const view=data.views[Number(select.value)], fmt=v=>v.toFixed(view.decimals)+view.unit;
       const focus=view.highlight || (key==='semantics'?'WING-LAM':'WING');
       card.querySelector('.result-view-label').textContent=view.label;
       plot.style.setProperty('--chart-columns',view.rows.length);
-      plot.style.minWidth=`${Math.max(360,view.rows.length*(card.closest('.result-pair')?56:91)+44)}px`;
+      plot.style.minWidth=card.dataset.viewIndex!==undefined?'0':`${Math.max(360,view.rows.length*(card.closest('.result-pair')?56:91)+44)}px`;
       plot.innerHTML=`<div class="result-grid" aria-hidden="true">${[1,.8,.6,.4,.2,0].map(f=>`<span style="bottom:${f*100}%"><b>${+(f*view.max).toFixed(2)}${view.unit==='%'?'%':''}</b></span>`).join('')}</div><div class="result-bars">${view.rows.map(([name,value])=>`<button class="result-bar ${name===focus?'is-focus':''}" type="button" style="--bar-height:${value/view.max*100}%" aria-label="${esc(name)}: ${fmt(value)}; ${esc(view.label)}"><span class="result-column"><span class="result-fill"><span class="result-number">${value.toFixed(view.decimals)}</span></span></span><span class="result-name">${esc(name)}</span></button>`).join('')}</div>`;
       const defaultText=`${view.unit===' / 10'?'Progress score':'%'===view.unit?(key==='semantics'?'Classification accuracy (%)':'Success rate (%)'):'Semantic similarity'} · ${0}–${view.max} scale. Hover, focus, or tap a bar for its exact value.`;
       readout.textContent=defaultText;

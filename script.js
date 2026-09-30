@@ -397,7 +397,7 @@ updateContents();
   }
   function schedule() {
     clearInterval(timer);
-    if (running && visible && !document.hidden) timer = setInterval(() => select((active + 1) % stages.length), 4000);
+    if (running && visible && !document.hidden) timer = setInterval(() => select((active + 1) % stages.length), 2000);
     play.textContent = running ? 'Pause sequence' : 'Play sequence';
     play.setAttribute('aria-pressed', String(running));
   }

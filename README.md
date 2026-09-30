@@ -117,3 +117,7 @@ qualitative relative positions from Figure 3(a), whose axes do not label absolut
 R² coordinates; the web panel exposes no invented numeric values and uses a descriptive caption. Replace its schematic coordinates when original data is supplied.
 All reading sections and chart/figure containers are constrained to the same
 960px text width; paired charts stack on narrow screens.
+
+The DCT bandwidth ablation uses four fixed LIBERO suite charts in a centered
+2×2 grid capped at 840px (narrower than the 960px text column). The spectral
+method illustration advances every two seconds while visible and playing.

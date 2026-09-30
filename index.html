@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=real-grid-7">
-  <script src="experiments.js?v=real-grid-5" defer></script>
-  <script src="script.js?v=spectral-interactive-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=bandwidth-grid-8">
+  <script src="experiments.js?v=bandwidth-grid-6" defer></script>
+  <script src="script.js?v=spectral-2s" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#abstract">Skip to abstract</a>
@@ -225,7 +225,15 @@
         <p>Interaction-centric encoding and spectral guidance make complementary contributions. These controlled ablations exclude egocentric WAM pretraining. Without WING-LAM, we use DreamDojo’s latent encoder; without DCT, we guide the policy with the full time-domain latent trajectory.</p></div>
         <div class="result-chart" data-chart="components"></div>
         <div class="experiment-copy"><h4>Enough temporal structure, without the full spectrum</h4><p>Keeping four DCT coefficients performs best across all four LIBERO suites. Two coefficients remove useful dynamics; keeping all eight introduces higher-frequency variation without improving control.</p></div>
-        <div class="result-chart" data-chart="bandwidth"></div>
+        <div class="bandwidth-overview" aria-label="DCT bandwidth ablation on four LIBERO suites">
+          <div class="bandwidth-grid">
+            <div class="result-chart" data-chart="bandwidth" data-view-index="0"></div>
+            <div class="result-chart" data-chart="bandwidth" data-view-index="1"></div>
+            <div class="result-chart" data-chart="bandwidth" data-view-index="2"></div>
+            <div class="result-chart" data-chart="bandwidth" data-view-index="3"></div>
+          </div>
+          <p class="bandwidth-caption">Success rate (%) · K = 8 retains the full spectrum. <strong>K = 4</strong> performs best in every suite. <a href="main.pdf#page=9" target="_blank" rel="noopener">Figure 5(a) ↗</a></p>
+        </div>
       </section>
       <section class="experiment-chapter" id="ego-pretraining" aria-labelledby="q4-title">
         <div class="experiment-copy"><p class="eyebrow">QUESTION 04 · EGO PRETRAINING</p><h3 id="q4-title">How should the model learn from egocentric video?</h3>
