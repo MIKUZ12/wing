@@ -139,3 +139,12 @@ Q1 classification uses a labeled 10–60% axis. Semantic similarity uses 0–0.6
 for matched pairs and 0–0.2 for mismatched pairs. Bandwidth panels use labeled
 96–100%, 98–100%, 94–100%, and 93–97% ranges; all bars are normalized to their
 own panel range and nonzero baselines are marked as truncated.
+
+Additional experiments presents four selected Figure 8 examples in a synchronized
+2×2 frame sequence: first frame (2s), second frame (2s), decoded motion (3s).
+The twelve 640×480 JPEGs are extracted losslessly from assets/int_vis.pdf;
+assets/interaction-motion/sources.json records their source image indices.
+The sequence pauses offscreen and in hidden tabs, supports manual stages and
+pause/play, and defaults to paused for reduced-motion preferences. The caption
+explains teacher-decoder reconstruction and concatenation across three clips.
+Real-world generalization follows as a text placeholder without video assets.

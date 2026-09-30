@@ -416,3 +416,31 @@ updateContents();
   }, {threshold: .25}).observe(panel);
   document.addEventListener('visibilitychange', schedule);
 })();
+
+// Frame-pair presentation: preserve the original decoded trajectories as images.
+(() => {
+  const gallery = document.querySelector('.interaction-gallery');
+  if (!gallery) return;
+  const stages = [...gallery.querySelectorAll('.interaction-stages button')];
+  const examples = [...gallery.querySelectorAll('.interaction-images')];
+  const play = gallery.querySelector('.interaction-play');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let active = 0, running = !reducedMotion.matches, visible = false, timer;
+  function select(index) {
+    active = index;
+    stages.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    examples.forEach(example => [...example.children].forEach((img, i) => { img.hidden = i !== index; }));
+  }
+  function schedule() {
+    clearTimeout(timer);
+    play.textContent = running ? 'Pause sequence' : 'Play sequence';
+    play.setAttribute('aria-pressed', String(running));
+    if (running && visible && !document.hidden) timer = setTimeout(() => { select((active + 1) % 3); schedule(); }, active === 2 ? 3000 : 2000);
+  }
+  stages.forEach((button, index) => button.addEventListener('click', () => { running = false; select(index); schedule(); }));
+  play.addEventListener('click', () => { running = !running; schedule(); });
+  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; schedule(); }, {threshold: .15}).observe(gallery);
+  document.addEventListener('visibilitychange', schedule);
+  reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) running = false; schedule(); });
+  schedule();
+})();

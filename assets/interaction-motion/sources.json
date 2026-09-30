@@ -1,0 +1,62 @@
+[
+  {
+    "file": "assets/interaction-motion/example-1-frame-1.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 1
+  },
+  {
+    "file": "assets/interaction-motion/example-1-frame-2.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 6
+  },
+  {
+    "file": "assets/interaction-motion/example-1-motion.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 8
+  },
+  {
+    "file": "assets/interaction-motion/example-2-frame-1.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 2
+  },
+  {
+    "file": "assets/interaction-motion/example-2-frame-2.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 7
+  },
+  {
+    "file": "assets/interaction-motion/example-2-motion.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 9
+  },
+  {
+    "file": "assets/interaction-motion/example-3-frame-1.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 36
+  },
+  {
+    "file": "assets/interaction-motion/example-3-frame-2.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 37
+  },
+  {
+    "file": "assets/interaction-motion/example-3-motion.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 38
+  },
+  {
+    "file": "assets/interaction-motion/example-4-frame-1.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 42
+  },
+  {
+    "file": "assets/interaction-motion/example-4-frame-2.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 43
+  },
+  {
+    "file": "assets/interaction-motion/example-4-motion.jpg",
+    "source": "assets/int_vis.pdf",
+    "pdf_extracted_image": 44
+  }
+]

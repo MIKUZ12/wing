@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=pretraining-horizontal-10">
+  <link rel="stylesheet" href="styles.css?v=interaction-gallery-1">
   <script src="experiments.js?v=detail-scales-13" defer></script>
-  <script src="script.js?v=spectral-2s" defer></script>
+  <script src="script.js?v=interaction-gallery-1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#abstract">Skip to abstract</a>
@@ -51,7 +51,7 @@
               <li><a href="#method">Methodology</a>
                 <ul><li><a href="#motivation-one">Motivation 1</a></li><li><a href="#wing-lam">WING-LAM</a></li><li><a href="#motivation-two">Motivation 2</a></li><li><a href="#spectral-guidance">Spectral guidance</a></li></ul>
               </li>
-              <li><a href="#experiments">What WING does</a><ul><li><a href="#transfer-structure">Transferable structure</a></li><li><a href="#robot-performance">Robot performance</a></li><li><a href="#component-analysis">Core components</a></li><li><a href="#ego-pretraining">Ego pretraining</a></li></ul></li>
+              <li><a href="#experiments">What WING does</a><ul><li><a href="#transfer-structure">Transferable structure</a></li><li><a href="#robot-performance">Robot performance</a></li><li><a href="#component-analysis">Core components</a></li><li><a href="#ego-pretraining">Ego pretraining</a></li><li><a href="#additional-experiments">Additional experiments</a></li><li><a href="#real-generalization">Generalization</a></li></ul></li>
               <li><a href="#abstract">Abstract</a></li>
               <li><a href="#bibtex">BibTeX</a></li>
             </ul>
@@ -240,6 +240,22 @@
         <p>All strategies use the same 200-hour egocentric pretraining budget. Predicting spectral guidance works better than video-only learning or treating latent actions as direct action targets. Removing interaction-centric debiasing also reduces performance in most settings.</p></div>
         <div class="pretraining-comparison" id="pretraining-comparison" aria-label="Egocentric pretraining strategy comparison"></div>
         <div class="experiment-copy"><p class="method-insight">Human latent actions are most useful as <strong>guidance for action generation</strong>, while the robot policy retains its own action-prediction objective.</p></div>
+      </section>
+      <section class="experiment-chapter" id="additional-experiments" aria-labelledby="additional-title">
+        <div class="experiment-copy"><p class="eyebrow">QUALITATIVE RESULTS</p><h3 id="additional-title">Additional experiments</h3><p>What does WING-LAM encode? Across different scenes, decoded motion concentrates on hands and their interactions with objects.</p></div>
+        <div class="interaction-gallery" aria-label="Interaction motion examples">
+          <div class="interaction-controls"><div class="interaction-stages" role="group" aria-label="Displayed frame"><button type="button" aria-pressed="true">01 · First frame</button><button type="button" aria-pressed="false">02 · Second frame</button><button type="button" aria-pressed="false">03 · Interaction motion</button></div><button class="interaction-play" type="button" aria-pressed="true">Pause sequence</button></div>
+          <div class="interaction-grid"><figure class="interaction-example"><div class="interaction-images"><img src="assets/interaction-motion/example-1-frame-1.jpg" width="640" height="480" alt="Example 1: first frame"><img src="assets/interaction-motion/example-1-frame-2.jpg" width="640" height="480" alt="Example 1: second frame" hidden><img src="assets/interaction-motion/example-1-motion.jpg" width="640" height="480" alt="Example 1: decoded interaction motion with orange trajectories" hidden></div><figcaption>Example 01</figcaption></figure>
+<figure class="interaction-example"><div class="interaction-images"><img src="assets/interaction-motion/example-2-frame-1.jpg" width="640" height="480" alt="Example 2: first frame"><img src="assets/interaction-motion/example-2-frame-2.jpg" width="640" height="480" alt="Example 2: second frame" hidden><img src="assets/interaction-motion/example-2-motion.jpg" width="640" height="480" alt="Example 2: decoded interaction motion with orange trajectories" hidden></div><figcaption>Example 02</figcaption></figure>
+<figure class="interaction-example"><div class="interaction-images"><img src="assets/interaction-motion/example-3-frame-1.jpg" width="640" height="480" alt="Example 3: first frame"><img src="assets/interaction-motion/example-3-frame-2.jpg" width="640" height="480" alt="Example 3: second frame" hidden><img src="assets/interaction-motion/example-3-motion.jpg" width="640" height="480" alt="Example 3: decoded interaction motion with orange trajectories" hidden></div><figcaption>Example 03</figcaption></figure>
+<figure class="interaction-example"><div class="interaction-images"><img src="assets/interaction-motion/example-4-frame-1.jpg" width="640" height="480" alt="Example 4: first frame"><img src="assets/interaction-motion/example-4-frame-2.jpg" width="640" height="480" alt="Example 4: second frame" hidden><img src="assets/interaction-motion/example-4-motion.jpg" width="640" height="480" alt="Example 4: decoded interaction motion with orange trajectories" hidden></div><figcaption>Example 04</figcaption></figure>
+</div>
+          <p class="interaction-caption">WING-LAM latent actions are passed to the teacher decoder to reconstruct motion trajectories. Trajectories from three consecutive clips are concatenated to reveal longer-term interaction motion. <a href="assets/int_vis.pdf" target="_blank" rel="noopener">Figure 8 ↗</a></p>
+        </div>
+      </section>
+      <section class="experiment-chapter" id="real-generalization" aria-labelledby="generalization-title">
+        <div class="experiment-copy"><p class="eyebrow">BEYOND THE TRAINING SETTING</p><h3 id="generalization-title">Real-world generalization</h3></div>
+        <div class="generalization-placeholder">Demonstrations coming soon.</div>
       </section>
     </section>
     <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction knowledge from human experience.</p></div><a class="paper-link" href="main.pdf" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>
