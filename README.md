@@ -98,3 +98,23 @@ git push origin main
 ## Motivation 2 / Spectral guidance
 
 WING-LAM 后继续介绍 ego–robot 的操作节奏与时序差异，以及频域解决方案。内容依据论文第 3.3 节：沿时间维做 DCT，保留最低 K 个频率系数作为 guidance target；推理时从当前上下文预测 guidance，再通过 gated attention 引导动作生成。强调截断作用于 latent guidance，而非直接滤波机器人动作。流程图仅说明训练目标的构建流程，不是实验数据图。
+
+### What WING does
+
+The four-question experiment section uses native HTML/CSS charts, with data in
+`experiments.js` transcribed from `main.pdf` (Tables 1–3, Figures 3–5, and Table 12).
+Selectors expose all main simulation table columns, four real-world tasks under
+standard/generalization settings with success and progress metrics, module and
+DCT-bandwidth ablations, and six equal-budget pretraining strategies. Generalization
+uses the precise Table 12 averages rather than the rounded Figure 4 labels.
+Axes start at zero. No uncertainty/error bars are invented. The existing At a
+Glance comparison remains separate (including the user-supplied LingBot-VA 2.0 result).
+
+Q1 is a two-by-two grid corresponding to all four Figure 3 panels. Camera
+sensitivity means and standard deviations come directly from the local source
+`../graph/camera_sensitivity_with_std.py`. The motion-decoding panel preserves
+qualitative relative positions from Figure 3(a), whose axes do not label absolute
+R² coordinates; the web panel explicitly states this and exposes no invented
+numeric values. Replace its schematic coordinates when original data is supplied.
+All reading sections and chart/figure containers are constrained to the same
+960px text width; paired charts stack on narrow screens.

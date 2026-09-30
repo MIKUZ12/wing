@@ -7,7 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=compact-nav-2">
+  <link rel="stylesheet" href="styles.css?v=experiments-2">
+  <script src="experiments.js?v=2" defer></script>
   <script src="script.js?v=spectral-interactive-1" defer></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
       <a class="wordmark" href="#home">WING</a>
       <details class="section-menu">
         <summary><span id="current-section">Overview</span><span class="menu-chevron" aria-hidden="true">⌄</span></summary>
-        <div class="section-menu-links"><a href="#home" aria-current="location">Overview</a><a href="#overview">At a Glance</a><a href="#method">Methodology</a><a href="#abstract">Abstract</a><a href="#bibtex">BibTeX</a></div>
+        <div class="section-menu-links"><a href="#home" aria-current="location">Overview</a><a href="#overview">At a Glance</a><a href="#method">Methodology</a><a href="#experiments">What WING does</a><a href="#abstract">Abstract</a><a href="#bibtex">BibTeX</a></div>
       </details>
       <div class="nav-resources">
         <a href="main.pdf" target="_blank" rel="noopener">Paper <span class="nav-badge">PDF</span></a>
@@ -50,6 +51,7 @@
               <li><a href="#method">Methodology</a>
                 <ul><li><a href="#motivation-one">Motivation 1</a></li><li><a href="#wing-lam">WING-LAM</a></li><li><a href="#motivation-two">Motivation 2</a></li><li><a href="#spectral-guidance">Spectral guidance</a></li></ul>
               </li>
+              <li><a href="#experiments">What WING does</a><ul><li><a href="#transfer-structure">Transferable structure</a></li><li><a href="#robot-performance">Robot performance</a></li><li><a href="#component-analysis">Core components</a></li><li><a href="#ego-pretraining">Ego pretraining</a></li></ul></li>
               <li><a href="#abstract">Abstract</a></li>
               <li><a href="#bibtex">BibTeX</a></li>
             </ul>
@@ -194,6 +196,37 @@
           </div>
         </section>
       </div>
+    </section>
+    <section class="section wrap experiments-section" id="experiments" aria-labelledby="experiments-title">
+      <p class="eyebrow">FROM REPRESENTATIONS TO ROBOT CONTROL</p>
+      <h2 id="experiments-title">What WING does</h2>
+      <p class="section-intro">Four questions about learning from human experience—and turning it into robot actions.</p>
+      <section class="experiment-chapter" id="transfer-structure" aria-labelledby="q1-title">
+        <div class="experiment-copy"><p class="eyebrow">QUESTION 01 · TRANSFERABLE STRUCTURE</p><h3 id="q1-title">What is worth transferring?</h3>
+        <p>Useful latent actions should describe the interaction, rather than the observer’s movement. WING-LAM preserves action semantics while reducing camera-motion information and sensitivity to camera perturbations. Its frozen representations achieve the highest average action-classification accuracy in this comparison.</p></div>
+        <div class="experiment-copy"><p>Across human–robot pairs, low-frequency latent components separate matching interactions more clearly from mismatched ones. The shared slow structure provides a stronger transfer signal than the full trajectory or its high-frequency components.</p></div>
+        <div class="result-pair"><div class="result-chart diagnostic-chart" id="motion-decodability"></div><div class="result-chart diagnostic-chart" id="camera-sensitivity"></div><div class="result-chart" data-chart="semantics"></div><div class="result-chart" data-chart="similarity"></div></div>
+      </section>
+      <section class="experiment-chapter" id="robot-performance" aria-labelledby="q2-title">
+        <div class="experiment-copy"><p class="eyebrow">QUESTION 02 · ROBOT PERFORMANCE</p><h3 id="q2-title">Does human experience improve robot control?</h3>
+        <p>WING achieves the highest average success rate among the methods reported in the paper on LIBERO, RoboTwin 2.0, and RoboCasa–GR1. Explore each benchmark and its evaluation settings below.</p></div>
+        <div class="result-chart" data-chart="simulation"></div>
+        <div class="experiment-copy"><h4>From simulation to four real-world tasks</h4><p>On the dual-arm robot, WING reaches 75.0% average success in the standard setting. Under generalization, it remains competitive with π₀.₅ in average success and attains a slightly higher average progress score. Success measures complete execution; progress also credits partial task completion.</p></div>
+        <div class="result-chart" data-chart="real"></div>
+      </section>
+      <section class="experiment-chapter" id="component-analysis" aria-labelledby="q3-title">
+        <div class="experiment-copy"><p class="eyebrow">QUESTION 03 · CORE COMPONENTS</p><h3 id="q3-title">Why do both components matter?</h3>
+        <p>Interaction-centric encoding and spectral guidance make complementary contributions. These controlled ablations exclude egocentric WAM pretraining. Without WING-LAM, we use DreamDojo’s latent encoder; without DCT, we guide the policy with the full time-domain latent trajectory.</p></div>
+        <div class="result-chart" data-chart="components"></div>
+        <div class="experiment-copy"><h4>Enough temporal structure, without the full spectrum</h4><p>Keeping four DCT coefficients performs best across all four LIBERO suites. Two coefficients remove useful dynamics; keeping all eight introduces higher-frequency variation without improving control.</p></div>
+        <div class="result-chart" data-chart="bandwidth"></div>
+      </section>
+      <section class="experiment-chapter" id="ego-pretraining" aria-labelledby="q4-title">
+        <div class="experiment-copy"><p class="eyebrow">QUESTION 04 · EGO PRETRAINING</p><h3 id="q4-title">How should the model learn from egocentric video?</h3>
+        <p>All strategies use the same 200-hour egocentric pretraining budget. Predicting spectral guidance works better than video-only learning or treating latent actions as direct action targets. Removing interaction-centric debiasing also reduces performance in most settings.</p></div>
+        <div class="result-chart" data-chart="pretraining"></div>
+        <div class="experiment-copy"><p class="method-insight">Human latent actions are most useful as <strong>guidance for action generation</strong>, while the robot policy retains its own action-prediction objective.</p></div>
+      </section>
     </section>
     <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction knowledge from human experience.</p></div><a class="paper-link" href="main.pdf" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>
     <section class="section wrap abstract-section" id="bibtex">
