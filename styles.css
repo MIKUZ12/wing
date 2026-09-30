@@ -198,9 +198,28 @@ body:has(.demo-dialog[open]){overflow:hidden}
 @media(max-width:1100px){.reading-layout{display:block;width:calc(100% - 48px)}.page-sidebar{padding-top:28px}.contents-menu{position:static;max-height:none;border-block:1px solid #dfe4dc;padding-block:12px}.contents-menu > summary{display:list-item;cursor:pointer;font:600 17px 'Source Serif 4',Georgia,serif}.sidebar-nav{padding-top:16px}.sidebar-nav a{padding-block:7px}.sidebar-nav > ul > li + li{margin-top:8px}}
 @media(max-width:520px){.reading-layout{width:calc(100% - 40px)}}
 
-.spectral-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;list-style:none;margin:30px 0 36px;padding:0}
-.spectral-flow li{position:relative;padding:20px 18px;border:1px solid #d5ded8;border-radius:7px;background:#edf1ed}
-.spectral-flow li:not(:last-child)::after{content:"→";position:absolute;right:-21px;top:22px;color:#668798;font-size:20px}
-.spectral-flow strong{display:block;font-size:18px;line-height:1.4;margin-bottom:10px}
-.spectral-flow span{display:block;font-size:16px;line-height:1.6}
-@media(max-width:700px){.spectral-flow{grid-template-columns:1fr;gap:24px}.spectral-flow li:not(:last-child)::after{content:"↓";left:50%;right:auto;top:auto;bottom:-27px;transform:translateX(-50%)}}
+/* Interactive spectral explanation, with serif text and compact technical labels. */
+.spectral-explorer{margin:30px 0 36px;border:1px solid #d5d7ce;border-radius:6px;background:#efefe7;overflow:hidden;color:var(--ink)}
+.spectral-topline{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px;border-bottom:1px solid #d9dcd3;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1.4px;color:#798078}
+.spectral-play{border:1px solid #c8cec6;border-radius:4px;background:transparent;color:#536158;font:13px/1.3 'Source Serif 4',Georgia,serif;padding:6px 12px;cursor:pointer;white-space:nowrap;letter-spacing:0}
+.spectral-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;padding:28px 22px}
+.spectral-stage{position:relative;min-width:0;text-align:left;border:1px solid #cbd1c9;border-radius:4px;background:#e6e8e0;color:#6c756d;padding:16px 12px;cursor:pointer;transition:background .35s,border-color .35s,box-shadow .35s;font:16px/1.5 'Source Serif 4',Georgia,serif}
+.spectral-stage:not(:last-child)::after{content:'→';position:absolute;right:-24px;top:48%;color:#7693a1;font-size:23px}
+.spectral-stage[aria-pressed="true"]{background:#e2edf1;border-color:#5f93b0;color:#273c46;box-shadow:0 3px 14px #466a7a0d}
+.spectral-stage:focus-visible,.spectral-play:focus-visible{outline:2px solid #287aac;outline-offset:3px}
+.spectral-label{display:block;font:9px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.5px;color:#77857d;min-height:28px}
+.spectral-stage strong{display:block;font-weight:500;font-size:20px;line-height:1.2;min-height:48px}
+.spectral-stage svg{display:block;width:100%;height:auto;margin:14px 0 16px;overflow:visible}
+.spectral-stage svg rect{transition:opacity .4s,fill .4s}
+.spectral-stage svg path{stroke-dasharray:600;animation:spectral-draw 1.4s ease both}
+.spectral-detail{display:grid;grid-template-columns:1.7fr 1fr;gap:30px;margin:0 22px;padding:23px 0;border-top:1px solid #d6dacf}
+.spectral-detail h4{font:500 23px/1.3 'Source Serif 4',Georgia,serif;margin:0 0 10px}
+.spectral-detail p{font-size:17px;line-height:1.55;margin:0;color:#5b675e}
+.spectral-control{align-self:center;font:10px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.5px;color:#738076}
+.spectral-control output{display:block;font:500 25px/1.6 'Source Serif 4',Georgia,serif;color:#2b709b;letter-spacing:0}
+.spectral-control input{display:block;width:100%;margin:8px 0;accent-color:#397eaa;cursor:pointer}
+.spectral-control>span{font-size:10px;letter-spacing:0}
+.spectral-explorer .spectral-caption{margin:0;padding:0 22px 20px;font:italic 13px/1.55 'Source Serif 4',Georgia,serif;color:#788278}
+@keyframes spectral-draw{from{stroke-dashoffset:600}to{stroke-dashoffset:0}}
+@media(max-width:700px){.spectral-stages{grid-template-columns:1fr;gap:26px}.spectral-stage{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}.spectral-stage svg{grid-column:2;grid-row:1/4;margin:0;align-self:center}.spectral-stage strong{min-height:0;font-size:19px}.spectral-stage>span:last-child{font-size:14px}.spectral-stage:not(:last-child)::after{content:'↓';top:auto;bottom:-29px;right:50%}.spectral-detail{grid-template-columns:1fr;gap:20px}.spectral-topline{font-size:9px;padding-inline:16px}.spectral-label{font-size:8px}.spectral-stages{padding:22px 16px}}
+@media(prefers-reduced-motion:reduce){.spectral-stage svg path{animation:none}}

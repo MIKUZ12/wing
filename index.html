@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=spectral-20260930">
-  <script src="script.js?v=sidebar-20260930" defer></script>
+  <link rel="stylesheet" href="styles.css?v=spectral-interactive-1">
+  <script src="script.js?v=spectral-interactive-1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#abstract">Skip to abstract</a>
@@ -177,11 +177,16 @@
             <p class="eyebrow">OUR SOLUTION</p>
             <h3 id="spectral-guidance-title">Spectral latent action guidance</h3>
             <p>WING transforms interaction-centric latent action sequences into the frequency domain and retains their lowest-frequency components as a structured guidance target for robot action generation.</p>
-            <ol class="spectral-flow" aria-label="Constructing the spectral guidance target during training">
-              <li><strong>Latent action sequence</strong><span>Encode successive frame pairs with WING-LAM.</span></li>
-              <li><strong>Temporal DCT</strong><span>Decompose each latent dimension into temporal frequency components.</span></li>
-              <li><strong>Low-frequency guidance</strong><span>Keep the first K coefficients and discard higher-frequency components.</span></li>
-            </ol>
+            <div class="spectral-explorer" aria-label="Interactive spectral guidance illustration">
+              <div class="spectral-topline"><span>INTERACTION → SPECTRAL GUIDANCE</span><button type="button" class="spectral-play" aria-pressed="false">Play sequence</button></div>
+              <div class="spectral-stages" role="group" aria-label="Explore a stage">
+                <button type="button" class="spectral-stage" data-stage="0" aria-pressed="true"><span class="spectral-label">01 · TIME DOMAIN</span><strong>Latent action sequence</strong><svg viewBox="0 0 240 110" aria-hidden="true" class="spectral-signal"></svg><span>Interaction-centric motion from WING-LAM.</span></button>
+                <button type="button" class="spectral-stage" data-stage="1" aria-pressed="false"><span class="spectral-label">02 · FREQUENCY DOMAIN</span><strong>Temporal DCT</strong><svg viewBox="0 0 240 110" aria-hidden="true" class="spectral-spectrum"></svg><span>Resolve slow and rapid temporal variations.</span></button>
+                <button type="button" class="spectral-stage" data-stage="2" aria-pressed="false"><span class="spectral-label">03 · RETAIN LOW FREQUENCIES</span><strong>Spectral guidance</strong><svg viewBox="0 0 240 110" aria-hidden="true" class="spectral-retained"></svg><span>Keep the first K coefficients as guidance.</span></button>
+              </div>
+              <div class="spectral-detail"><div><h4 class="spectral-detail-title">Encode interactions over time</h4><p class="spectral-detail-copy">WING-LAM encodes successive frame pairs. The resulting sequence contains both slowly varying structure and rapid temporal changes.</p></div><label class="spectral-control" for="spectral-k">RETAINED COEFFICIENTS <output id="spectral-k-value" for="spectral-k">K = 4 / 16</output><input id="spectral-k" type="range" min="1" max="16" value="4"><span>Low → high frequency</span></label></div>
+              <p class="spectral-caption">Illustrative signal · Select a stage or adjust K to explore. At inference, WING predicts the retained coefficients to guide robot actions.</p>
+            </div>
             <p><strong>1. Extract the shared temporal structure.</strong> We apply a discrete cosine transform (DCT) along the time axis of the latent sequence. Keeping only the lowest K frequency components suppresses rapid variations and retains the slower structure that transfers more consistently between human and robot interactions.</p>
             <p><strong>2. Predict guidance from the current context.</strong> The spectral target is constructed from future frame pairs during training. At inference time, a lightweight predictor estimates it from the current image, language instruction, and robot state, so future observations are not required.</p>
             <p><strong>3. Guide robot action generation.</strong> The predicted frequency coefficients are projected into guidance tokens. The action model attends to these tokens through gated residual updates, using the shared spectral latent action to guide the generation of executable robot action chunks.</p>

@@ -365,3 +365,54 @@ window.addEventListener('resize', updateContents);
 window.addEventListener('pageshow', updateContents);
 sidebarLinks.forEach(link => link.addEventListener('click', () => { if (!desktopContents.matches) contentsMenu.open = false; }));
 updateContents();
+
+// An illustrative, orthonormal DCT of one latent dimension (not experimental data).
+(() => {
+  const panel = document.querySelector('.spectral-explorer');
+  if (!panel) return;
+  const stages = [...panel.querySelectorAll('.spectral-stage')];
+  const slider = panel.querySelector('#spectral-k');
+  const play = panel.querySelector('.spectral-play');
+  const count = 16;
+  const signal = Array.from({length: count}, (_, n) => .6 * Math.cos(Math.PI * (n + .5) / count) + .3 * Math.cos(2 * Math.PI * (n + .5) / count) + .16 * Math.cos(9 * Math.PI * (n + .5) / count) + .09 * Math.cos(13 * Math.PI * (n + .5) / count));
+  const coefficients = signal.map((_, k) => Math.sqrt((k === 0 ? 1 : 2) / count) * signal.reduce((sum, value, n) => sum + value * Math.cos(Math.PI * (n + .5) * k / count), 0));
+  const details = [
+    ['Encode interactions over time', 'WING-LAM encodes successive frame pairs. The resulting sequence contains both slowly varying structure and rapid temporal changes.'],
+    ['Separate temporal frequencies', 'A temporal DCT expresses each latent dimension as frequency coefficients, ordered from slow to fast variation. No coefficients have been discarded at this stage.'],
+    ['Retain the shared slow structure', 'Only the first K coefficients form the guidance target. At inference, a predictor estimates these coefficients from the current context; the action model uses them to generate fine-grained controls.']
+  ];
+  let active = 0, running = false, visible = false, timer;
+  const axis = '<path d="M8 95H232" fill="none" stroke="#bdc8c0" stroke-width="1"/>';
+  panel.querySelector('.spectral-signal').innerHTML = axis + `<path d="${signal.map((v,n) => `${n ? 'L' : 'M'}${8+n*224/(count-1)},${52-v*40}`).join(' ')}" fill="none" stroke="#678e9f" stroke-width="2.5"/>`;
+  function drawSpectrum(selector, truncate) {
+    panel.querySelector(selector).innerHTML = axis + coefficients.map((c,k) => `<rect x="${9+k*14}" y="${94-Math.max(2,Math.abs(c)*37)}" width="9" height="${Math.max(2,Math.abs(c)*37)}" rx="1" fill="${truncate && k < Number(slider.value) ? '#377fa8' : '#91a09a'}" opacity="${truncate && k >= Number(slider.value) ? '.17' : '1'}"/>`).join('') + '<text x="8" y="109" fill="#7c877f" font-size="8" font-family="monospace">low</text><text x="210" y="109" fill="#7c877f" font-size="8" font-family="monospace">high</text>';
+  }
+  drawSpectrum('.spectral-spectrum', false);
+  drawSpectrum('.spectral-retained', true);
+  function select(index) {
+    active = index;
+    stages.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    panel.querySelector('.spectral-detail-title').textContent = details[index][0];
+    panel.querySelector('.spectral-detail-copy').textContent = details[index][1];
+  }
+  function schedule() {
+    clearInterval(timer);
+    if (running && visible && !document.hidden) timer = setInterval(() => select((active + 1) % stages.length), 4000);
+    play.textContent = running ? 'Pause sequence' : 'Play sequence';
+    play.setAttribute('aria-pressed', String(running));
+  }
+  stages.forEach((button, index) => button.addEventListener('click', () => {running = false; schedule(); select(index);}));
+  slider.addEventListener('input', () => {
+    running = false; schedule(); select(2);
+    panel.querySelector('#spectral-k-value').value = `K = ${slider.value} / ${count}`;
+    drawSpectrum('.spectral-retained', true);
+  });
+  play.addEventListener('click', () => {running = !running; schedule();});
+  let entered = false;
+  new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    if (visible && !entered) {entered = true; running = !matchMedia('(prefers-reduced-motion: reduce)').matches;}
+    schedule();
+  }, {threshold: .25}).observe(panel);
+  document.addEventListener('visibilitychange', schedule);
+})();
