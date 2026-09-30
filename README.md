@@ -127,3 +127,8 @@ and Real-world columns. It reuses all 24 Table 3 values, bolds column maxima
 (including ties), and highlights the complete configuration. Its 900px cap keeps
 it slightly narrower than the text column. The takeaway compares both components
 against neither: +7.5 pp standard, +9.0 pp generalization, without ego pretraining.
+
+Pretraining is displayed as one horizontal-bar comparison with six settings in a
+3×2 layout. Shared strategy rows align across each band; all 36 Figure 5(b) values
+are visible without a selector. WING uses blue, its no-debiasing variant light blue,
+and other strategies gray. The comparison retains a shared 0–100% axis.

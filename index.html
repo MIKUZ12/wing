@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=component-table-9">
-  <script src="experiments.js?v=component-table-9" defer></script>
+  <link rel="stylesheet" href="styles.css?v=pretraining-horizontal-10">
+  <script src="experiments.js?v=pretraining-horizontal-10" defer></script>
   <script src="script.js?v=spectral-2s" defer></script>
 </head>
 <body>
@@ -238,7 +238,7 @@
       <section class="experiment-chapter" id="ego-pretraining" aria-labelledby="q4-title">
         <div class="experiment-copy"><p class="eyebrow">QUESTION 04 · EGO PRETRAINING</p><h3 id="q4-title">How should the model learn from egocentric video?</h3>
         <p>All strategies use the same 200-hour egocentric pretraining budget. Predicting spectral guidance works better than video-only learning or treating latent actions as direct action targets. Removing interaction-centric debiasing also reduces performance in most settings.</p></div>
-        <div class="result-chart" data-chart="pretraining"></div>
+        <div class="pretraining-comparison" id="pretraining-comparison" aria-label="Egocentric pretraining strategy comparison"></div>
         <div class="experiment-copy"><p class="method-insight">Human latent actions are most useful as <strong>guidance for action generation</strong>, while the robot policy retains its own action-prediction objective.</p></div>
       </section>
     </section>
