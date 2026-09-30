@@ -331,3 +331,26 @@ body:has(.demo-dialog[open]){overflow:hidden}
 .experiment-questions a:hover{color:#246b9d}
 #transfer-structure{padding-top:34px}
 @media(max-width:800px){.experiment-questions{font-size:16px;gap:10px}.reading-content > #method{padding-bottom:28px}.reading-content > #experiments{padding-top:28px}}
+
+/* Simulation tables share the paper's columns in a compact web layout. */
+.simulation-tables{max-width:960px;margin:28px auto 38px;font-family:'Source Serif 4',Georgia,serif}
+.simulation-table-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.simulation-table-heading h4{font:600 26px/1.3 'Source Serif 4',Georgia,serif;margin:0}
+.simulation-table-heading>span{font-size:12px;color:#75806e}
+.simulation-table-grid{display:grid;grid-template-columns:1.35fr 1.05fr .8fr;gap:14px;align-items:start}
+.simulation-table-panel{min-width:0;padding:14px 10px 10px;border:1px solid #d4d8cc;border-radius:5px;background:#efefe7;overflow-x:auto}
+.simulation-table-panel table{border-collapse:collapse;width:100%;font-size:11px;line-height:1.4;font-variant-numeric:tabular-nums}
+.simulation-table-panel caption{text-align:left;font-size:20px;font-weight:600;color:var(--ink);padding:0 0 14px}
+.simulation-table-panel caption a{float:right;font:13px 'Source Serif 4',Georgia,serif;color:#7d8977;margin-top:5px}
+.simulation-table-panel th,.simulation-table-panel td{padding:9px 3px;text-align:right;white-space:nowrap;border-bottom:1px solid #dce0d4}
+.simulation-table-panel th:first-child{text-align:left;font-weight:400}
+.simulation-table-panel thead th{font-size:10px;font-weight:500;color:#697662;border-block:1px solid #acb7a4}
+.simulation-table-panel tbody th{color:#53634d}
+.simulation-table-panel tbody tr:hover{background:#e5e9df}
+.simulation-table-panel tbody tr:last-child>*{border-bottom:0}
+.simulation-table-panel .simulation-ours>*{color:#276e9a;background:#e0ebee;border-top:1px solid #b3cbd4}
+.simulation-table-panel .simulation-ours th{font-weight:600}
+.simulation-second{text-decoration:underline;text-underline-offset:3px}
+.simulation-table-note{font:italic 12px/1.5 'Source Serif 4',Georgia,serif;color:#74806c;margin:12px 0 0}
+@media(max-width:1200px){.simulation-table-grid{grid-template-columns:1fr}.simulation-table-panel{padding:16px}.simulation-table-panel table{font-size:13px}.simulation-table-panel thead th{font-size:12px}}
+@media(max-width:520px){.simulation-table-heading{display:block}.simulation-table-heading h4{font-size:23px;margin-bottom:6px}.simulation-table-panel{padding:12px 8px}.simulation-table-panel table{font-size:10px}.simulation-table-panel thead th{font-size:9px}.simulation-table-panel th,.simulation-table-panel td{padding:8px 2px}}

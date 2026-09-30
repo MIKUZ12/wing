@@ -31,6 +31,17 @@
   addViews('bandwidth',suites.slice(0,4),['K = 2','K = 8 (full)','K = 4'],[[97.2,98.6,95.2,94],[98.2,99.4,95.6,95.2],[99.6,100,99.2,96.2]],{highlight:'K = 4'});
   addViews('pretraining',suites,['Hand-pose','Video-only','Latent action · no debiasing','Latent action','WING · no debiasing','WING'],[[98.2,99.4,97.4,96.2,72.5,40],[96.6,98.8,96,91.4,60,38],[94.2,96.4,92,84.4,58.8,30],[94,98.8,92.4,85.2,60,35.5],[98.6,98.4,97.6,96.4,68.8,41],[99,100,98.8,99,75,49.5]]);
   const esc = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+  // Reuse the verified simulation values; each benchmark is a native HTML table.
+  const tableGroups = [
+    {title:'LIBERO', indices:[1,2,3,4,0], headers:['Spatial','Object','Goal','Long','Avg.'], page:8},
+    {title:'RoboTwin 2.0', indices:[6,7,5], headers:['Clean','Rand.','Avg.'], page:8},
+    {title:'RoboCasa–GR1', indices:[8], headers:['Avg.'], page:7}
+  ];
+  document.querySelector('#simulation-tables').innerHTML = `<div class="simulation-table-heading"><h4>Simulation performance</h4><span>Success rate (%)</span></div><div class="simulation-table-grid">${tableGroups.map(group => {
+    const views=group.indices.map(i=>datasets.simulation.views[i]);
+    const ranks=views.map(view=>[...new Set(view.rows.map(row=>row[1]))].sort((a,b)=>b-a));
+    return `<div class="simulation-table-panel"><table><caption>${group.title}<a href="main.pdf#page=${group.page}" target="_blank" rel="noopener" aria-label="${group.title} results in the paper">↗</a></caption><thead><tr><th scope="col">Method</th>${group.headers.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${views[0].rows.map(([name],r)=>`<tr class="${name==='WING'?'simulation-ours':''}"><th scope="row">${esc(name)}${group.indices[0]===8&&name==='Fast-WAM'?'†':''}</th>${views.map((view,c)=>{const val=view.rows[r][1],formatted=val.toFixed(view.decimals);return `<td>${val===ranks[c][0]?`<strong>${formatted}</strong>`:val===ranks[c][1]?`<span class="simulation-second">${formatted}</span>`:formatted}</td>`;}).join('')}</tr>`).join('')}</tbody></table></div>`;
+  }).join('')}</div><p class="simulation-table-note">Best in <strong>bold</strong>; second best underlined. † Fast-WAM on RoboCasa–GR1 is our reproduction.</p>`;
   document.querySelectorAll('[data-chart]').forEach((card) => {
     const key=card.dataset.chart, data=datasets[key], id='chart-view-'+key;
     card.innerHTML=`<div class="result-heading"><h4>${data.title}</h4><a href="main.pdf#page=${data.page}" target="_blank" rel="noopener">${data.source} ↗</a></div><div class="result-toolbar"><label for="${id}">View <select id="${id}">${data.views.map((v,i)=>`<option value="${i}">${esc(v.label)}</option>`).join('')}</select></label><div class="result-legend"><span><i></i>Comparison</span><span><i class="result-blue"></i>WING / focus</span></div></div><p class="result-view-label"></p><div class="result-scroll" tabindex="0" role="region" aria-label="Scrollable chart"><div class="result-plot"></div></div><p class="result-swipe">Swipe horizontally to compare all methods →</p><p class="result-readout" aria-live="polite"></p><p class="result-note">${data.note}</p>`;

@@ -103,7 +103,7 @@ WING-LAM 后继续介绍 ego–robot 的操作节奏与时序差异，以及频�
 
 The four-question experiment section uses native HTML/CSS charts, with data in
 `experiments.js` transcribed from `main.pdf` (Tables 1–3, Figures 3–5, and Table 12).
-Selectors expose all main simulation table columns, four real-world tasks under
+Three side-by-side native tables expose all main simulation table columns; selectors expose four real-world tasks under
 standard/generalization settings with success and progress metrics, module and
 DCT-bandwidth ablations, and six equal-budget pretraining strategies. Generalization
 uses the precise Table 12 averages rather than the rounded Figure 4 labels.
