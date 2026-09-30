@@ -488,3 +488,5 @@ body:has(.demo-dialog[open]){overflow:hidden}
 @keyframes scroll-arrow-float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 .scroll-cue span{animation:scroll-arrow-float 2s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){.scroll-cue span{animation:none}}
+
+.hero-content sup.corresponding-star{font-size:.95em;font-weight:700;line-height:0;margin-left:3px}
