@@ -483,3 +483,8 @@ body:has(.demo-dialog[open]){overflow:hidden}
 
 @font-face{font-family:'WING Display';font-style:normal;font-weight:200 900;font-display:swap;src:url('assets/fonts/source-serif-4-display.ttf') format('truetype')}
 .hero-wing{font-family:'WING Display','Source Serif 4',Georgia,serif;font-weight:700;font-optical-sizing:none;font-variation-settings:"opsz" 36;font-size:1.12em;letter-spacing:-.008em}
+
+/* A gentle cue to continue reading. */
+@keyframes scroll-arrow-float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.scroll-cue span{animation:scroll-arrow-float 2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.scroll-cue span{animation:none}}
