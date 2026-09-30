@@ -131,4 +131,6 @@ against neither: +7.5 pp standard, +9.0 pp generalization, without ego pretraini
 Pretraining is displayed as one horizontal-bar comparison with six settings in a
 3×2 layout. Shared strategy rows align across each band; all 36 Figure 5(b) values
 are visible without a selector. WING uses blue, its no-debiasing variant light blue,
-and other strategies gray. The comparison retains a shared 0–100% axis.
+and other strategies gray. LIBERO uses labeled, truncated axes: Spatial 90–100%, Object 95–100%, Goal
+90–100%, Long 80–100%. Real-world Standard uses 55–80% and Generalization uses 25–55%. Bar lengths are
+normalized within each panel; all original values remain visible.
