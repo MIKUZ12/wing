@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#182723">
   <title>WING — World Action Learning</title>
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=sidebar-compact-20260930">
+  <link rel="stylesheet" href="styles.css?v=spectral-20260930">
   <script src="script.js?v=sidebar-20260930" defer></script>
 </head>
 <body>
@@ -48,7 +48,7 @@
             <ul>
               <li><a href="#overview">At a Glance</a></li>
               <li><a href="#method">Methodology</a>
-                <ul><li><a href="#motivation-one">Motivation 1</a></li><li><a href="#wing-lam">WING-LAM</a></li></ul>
+                <ul><li><a href="#motivation-one">Motivation 1</a></li><li><a href="#wing-lam">WING-LAM</a></li><li><a href="#motivation-two">Motivation 2</a></li><li><a href="#spectral-guidance">Spectral guidance</a></li></ul>
               </li>
               <li><a href="#abstract">Abstract</a></li>
               <li><a href="#bibtex">BibTeX</a></li>
@@ -161,6 +161,31 @@
             <p><strong>2. Learn two latent branches.</strong> A teacher model encodes camera motion and interaction motion separately. The camera branch predicts the global warp, while the interaction branch predicts the residual displacements. Together, their decoded motions reconstruct the observed point movements.</p>
             <p><strong>3. Distill the interaction representation.</strong> An RGB-only student learns the teacher's interaction latent from frame pairs. We also apply camera-like warps that preserve the interaction target, encouraging the student to produce consistent latent actions despite changes in viewpoint. The resulting model extracts interaction-centric latent actions without requiring point tracks or region masks as inputs.</p>
             <p class="method-insight">These latent actions preserve manipulation structure with less sensitivity to observer motion, providing the foundation for WING's spectral latent guidance.</p>
+          </div>
+        </section>
+        <section class="method-chapter" id="motivation-two" aria-labelledby="motivation-two-title">
+          <div class="method-explanation">
+            <p class="eyebrow">MOTIVATION 2</p>
+            <h3 id="motivation-two-title">Shared interactions, different execution rhythms</h3>
+            <p>Removing camera motion does not eliminate the gap between human and robot behavior. Even when both perform the same interaction, they can differ in speed, pauses, and the timing of individual movements. Interaction-centric latent actions still encode these temporal differences, making direct transfer of the full latent sequence challenging.</p>
+            <p>We therefore examine latent action sequences in the frequency domain. Our analysis finds stronger correspondence between human and robot interactions in their low-frequency components: the slowly varying temporal structure is more consistent across embodiments than the full trajectory.</p>
+            <p class="method-insight"><strong>Our goal:</strong> transfer the shared temporal structure while allowing the robot to generate fine-grained actions suited to its own embodiment.</p>
+          </div>
+        </section>
+        <section class="method-chapter" id="spectral-guidance" aria-labelledby="spectral-guidance-title">
+          <div class="method-explanation">
+            <p class="eyebrow">OUR SOLUTION</p>
+            <h3 id="spectral-guidance-title">Spectral latent action guidance</h3>
+            <p>WING transforms interaction-centric latent action sequences into the frequency domain and retains their lowest-frequency components as a structured guidance target for robot action generation.</p>
+            <ol class="spectral-flow" aria-label="Constructing the spectral guidance target during training">
+              <li><strong>Latent action sequence</strong><span>Encode successive frame pairs with WING-LAM.</span></li>
+              <li><strong>Temporal DCT</strong><span>Decompose each latent dimension into temporal frequency components.</span></li>
+              <li><strong>Low-frequency guidance</strong><span>Keep the first K coefficients and discard higher-frequency components.</span></li>
+            </ol>
+            <p><strong>1. Extract the shared temporal structure.</strong> We apply a discrete cosine transform (DCT) along the time axis of the latent sequence. Keeping only the lowest K frequency components suppresses rapid variations and retains the slower structure that transfers more consistently between human and robot interactions.</p>
+            <p><strong>2. Predict guidance from the current context.</strong> The spectral target is constructed from future frame pairs during training. At inference time, a lightweight predictor estimates it from the current image, language instruction, and robot state, so future observations are not required.</p>
+            <p><strong>3. Guide robot action generation.</strong> The predicted frequency coefficients are projected into guidance tokens. The action model attends to these tokens through gated residual updates, using the shared spectral latent action to guide the generation of executable robot action chunks.</p>
+            <p class="method-insight">Low-frequency truncation is applied to the <strong>latent guidance</strong>. The robot's actions retain the fine-grained control needed to complete the task.</p>
           </div>
         </section>
       </div>

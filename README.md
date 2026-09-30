@@ -93,4 +93,8 @@ git push origin main
 
 ## 阅读目录
 
-正文采用左侧粘性分层目录，包含 At a Glance、Methodology（Motivation 1、WING-LAM）、Abstract、BibTeX。滚动时只标记当前子章节；移动端折叠为 On this page。封面布局独立保持全宽。WING-LAM 图框最大宽度与正文一致，均为 960px。
+正文采用左侧粘性分层目录，包含 At a Glance、Methodology（Motivation 1、WING-LAM、Motivation 2、Spectral guidance）、Abstract、BibTeX。滚动时只标记当前子章节；移动端折叠为 On this page。封面布局独立保持全宽。WING-LAM 图框最大宽度与正文一致，均为 960px。
+
+## Motivation 2 / Spectral guidance
+
+WING-LAM 后继续介绍 ego–robot 的操作节奏与时序差异，以及频域解决方案。内容依据论文第 3.3 节：沿时间维做 DCT，保留最低 K 个频率系数作为 guidance target；推理时从当前上下文预测 guidance，再通过 gated attention 引导动作生成。强调截断作用于 latent guidance，而非直接滤波机器人动作。流程图仅说明训练目标的构建流程，不是实验数据图。
