@@ -150,8 +150,8 @@ body:has(.demo-dialog[open]){overflow:hidden}
 @media(max-width:760px){.demo-card{flex-basis:82%}.demo-track{gap:18px}.gallery-heading{flex-wrap:wrap;gap:16px}.gallery-heading h3{font-size:28px}.demo-title{font-size:21px}.gallery-instruction{font-size:18px;text-align:left}.demo-dialog{width:calc(100vw - 20px);padding:12px}.demo-dialog-heading h2{font-size:20px}}
 
 .method-section{border-top:1px solid #dfe4dc}
-.method-frame{margin:30px 0 36px}
-.method-frame video{display:block;width:100%;height:auto;aspect-ratio:1020/482;background:#fff;box-shadow:0 0 20px 12px #fff}
+.method-frame{width:100%;max-width:840px;margin:26px auto 32px;padding:16px}
+.method-frame video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#fff;box-shadow:0 0 20px 12px #fff}
 .method-explanation{max-width:960px;margin-inline:auto;font:20px/1.75 'Source Serif 4',Georgia,serif;color:#536158}
 .method-explanation p{margin:0 0 20px}
 .method-explanation strong{font-weight:600;color:var(--ink)}
