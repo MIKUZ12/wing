@@ -466,3 +466,12 @@ body:has(.demo-dialog[open]){overflow:hidden}
 .generalization-placeholder{max-width:960px;margin:auto;padding:24px;border:1px dashed #cbd2c5;border-radius:6px;color:#73806a;font:italic 17px/1.5 'Source Serif 4',Georgia,serif}
 @media(max-width:700px){.interaction-controls{align-items:flex-start;flex-direction:column}.interaction-gallery{padding:12px}.interaction-grid{gap:10px}.interaction-controls button{font-size:12px;padding:6px 8px}}
 @media(max-width:440px){.interaction-grid{grid-template-columns:1fr}}
+
+/* A distinct blue wordmark and more legible cover credits. */
+.hero-wing{font-family:'Source Serif 4',Georgia,serif;font-weight:800;font-size:1.08em;letter-spacing:-.035em;color:#8ed1f5}
+.hero-media::after{height:clamp(90px,15vh,170px);background:linear-gradient(to bottom,rgba(247,247,239,0) 0%,rgba(247,247,239,.06) 18%,rgba(247,247,239,.22) 40%,rgba(247,247,239,.5) 62%,rgba(247,247,239,.8) 82%,var(--paper) 100%)}
+.hero-content .authors{font-size:clamp(18px,1.3vw,22px);gap:12px 24px;max-width:1250px}
+.hero-content .affiliations{font-size:clamp(17px,1.15vw,20px);margin-top:22px;color:#fffffff0}
+.hero-content .author-notes{font-size:15px;color:#ffffffe0;margin-top:14px}
+@media(max-width:1100px){.hero-wing{color:#287ead}.hero-content .authors{font-size:18px;gap:10px 20px}.hero-content .affiliations{font-size:17px;color:var(--muted)}.hero-content .author-notes{font-size:14px;color:var(--muted)}}
+@media(max-width:520px){.hero-content .authors{font-size:16px;gap:8px 16px}.hero-content .affiliations{font-size:16px}.hero-content .author-notes{font-size:13px}}
