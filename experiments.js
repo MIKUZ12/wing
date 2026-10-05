@@ -89,7 +89,7 @@
       plot.style.setProperty('--chart-columns',view.rows.length);
       plot.style.minWidth=card.dataset.viewIndex!==undefined?'0':`${Math.max(360,view.rows.length*(card.closest('.result-pair')?56:91)+44)}px`;
       plot.innerHTML=`<div class="result-grid" aria-hidden="true">${[...ticks].reverse().map(t=>`<span style="bottom:${(t-min)/range*100}%"><b>${+t.toFixed(2)}${view.unit==='%'?'%':''}</b></span>`).join('')}</div><div class="result-bars">${view.rows.map(([name,value])=>`<button class="result-bar ${name===focus?'is-focus':''}" type="button" style="--bar-height:${(value-min)/range*100}%" aria-label="${esc(name)}: ${fmt(value)}; ${esc(view.label)}"><span class="result-column"><span class="result-fill"><span class="result-number">${value.toFixed(view.decimals)}</span></span></span><span class="result-name">${esc(name)}</span></button>`).join('')}</div>`;
-      const defaultText=`${view.unit==='%'?(key==='semantics'?'Classification accuracy (%)':'SR (%)'):'Semantic similarity'} · ${min}–${view.max} scale${min>0?' (truncated)':''}. Hover, focus, or tap a bar for its exact value.`;
+      const defaultText=key==='bandwidth'?'SR (%). Hover, focus, or tap a bar for its exact value.':`${view.unit==='%'?(key==='semantics'?'Classification accuracy (%)':'SR (%)'):'Semantic similarity'} · ${min}–${view.max} scale${min>0?' (truncated)':''}. Hover, focus, or tap a bar for its exact value.`;
       readout.textContent=defaultText;
       const bars=[...plot.querySelectorAll('.result-bar')];
       function highlight(button,i){bars.forEach(b=>b.classList.toggle('is-selected',b===button));readout.textContent=`${view.rows[i][0]} — ${fmt(view.rows[i][1])} · ${view.label}`;}
