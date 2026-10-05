@@ -444,3 +444,64 @@ updateContents();
   reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) running = false; schedule(); });
   schedule();
 })();
+
+// Load only the selected original clip; thumbnails keep the gallery lightweight.
+(() => {
+  const gallery = document.querySelector('.generalization-gallery');
+  if (!gallery) return;
+  const tasks = {
+    insertion: { title: 'Battery Insertion', types: ['app', 'spatial'] },
+    assembly: { title: 'Battery Assembly', types: ['app', 'bg', 'spatial'] },
+    pack3: { title: 'Pack Objects', types: ['app', 'bg', 'spatial', 'geo'] },
+    stack: { title: 'Stack Cups', types: ['app', 'bg', 'spatial', 'geo'] }
+  };
+  const labels = { app: 'Appearance', bg: 'Background', spatial: 'Spatial', geo: 'Geometry' };
+  const tabs = [...gallery.querySelectorAll('[data-task]')];
+  const previews = gallery.querySelector('.gen-previews');
+  const video = gallery.querySelector('.gen-video');
+  const error = gallery.querySelector('.gen-error');
+  let task = 'pack3', type = 'app', visible = false, loaded = false, resume = true;
+  function playIfVisible() {
+    if (!visible || document.hidden) { video.pause(); return; }
+    if (!loaded) { video.src = `gen/${task}_${type}.MP4`; loaded = true; video.load(); }
+    if (resume) video.play().catch(() => {});
+  }
+  function selectClip(next) {
+    video.pause(); type = next; loaded = false; resume = true;
+    error.hidden = true;
+    error.querySelector('a').href = `gen/${task}_${type}.MP4`;
+    video.poster = `assets/generalization/${task}_${type}.jpg`;
+    video.setAttribute('aria-label', `${tasks[task].title}: ${labels[type]} generalization`);
+    gallery.querySelector('.gen-title').textContent = tasks[task].title;
+    gallery.querySelector('.gen-type').textContent = `${labels[type]} generalization`;
+    [...previews.children].forEach(button => button.setAttribute('aria-pressed', String(button.dataset.type === type)));
+    playIfVisible();
+  }
+  function selectTask(next) {
+    task = next;
+    tabs.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.task === task)));
+    previews.replaceChildren();
+    tasks[task].types.forEach(key => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'gen-preview'; button.dataset.type = key;
+      button.setAttribute('aria-label', `Play ${tasks[task].title}: ${labels[key]} generalization`);
+      const img = document.createElement('img'); img.src = `assets/generalization/${task}_${key}.jpg`; img.alt = ''; img.width = 480; img.height = 270;
+      const label = document.createElement('span'); label.textContent = labels[key];
+      button.append(img, label); button.addEventListener('click', () => selectClip(key)); previews.append(button);
+    });
+    previews.scrollTop = 0; previews.scrollLeft = 0;
+    selectClip(tasks[task].types.includes(type) ? type : tasks[task].types[0]);
+  }
+  tabs.forEach(button => button.addEventListener('click', () => selectTask(button.dataset.task)));
+  video.addEventListener('error', () => { error.hidden = false; });
+  new IntersectionObserver(entries => {
+    const next = entries[0].isIntersecting;
+    if (!next && visible && loaded) resume = !video.paused;
+    visible = next; playIfVisible();
+  }, {threshold: .15}).observe(video);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && visible && loaded) resume = !video.paused;
+    playIfVisible();
+  });
+  selectTask(task);
+})();

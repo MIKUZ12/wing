@@ -148,3 +148,11 @@ The sequence pauses offscreen and in hidden tabs, supports manual stages and
 pause/play, and defaults to paused for reduced-motion preferences. The caption
 explains teacher-decoder reconstruction and concatenation across three clips.
 Real-world generalization follows as a text placeholder without video assets.
+
+Real-world generalization now includes all 13 original 1280×720 H.264 clips in
+`gen/`, grouped by task (insertion, assembly, pack3, stack) and the filename
+suffixes app (appearance), bg (background), spatial, and geo (geometry).
+Only the selected clip loads; extracted JPEG posters supply the preview rail.
+The player pauses offscreen and provides native playback/fullscreen controls.
+Paper navigation links point to https://arxiv.org/abs/2610.03607; local PDF
+figure references and the existing BibTeX remain unchanged.

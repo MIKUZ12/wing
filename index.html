@@ -8,9 +8,9 @@
   <title>WING — World Action Learning</title>
   <link rel="icon" type="image/svg+xml" sizes="any" href="assets/favicon.svg?v=2">
   <link rel="stylesheet" href="assets/fonts/source-serif-4.css">
-  <link rel="stylesheet" href="styles.css?v=corresponding-star-1">
+  <link rel="stylesheet" href="styles.css?v=generalization-2">
   <script src="experiments.js?v=detail-scales-13" defer></script>
-  <script src="script.js?v=interaction-gallery-1" defer></script>
+  <script src="script.js?v=generalization-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#abstract">Skip to abstract</a>
@@ -22,7 +22,7 @@
         <div class="section-menu-links"><a href="#home" aria-current="location">Overview</a><a href="#overview">At a Glance</a><a href="#method">Methodology</a><a href="#experiments">What WING does</a><a href="#abstract">Abstract</a><a href="#bibtex">BibTeX</a></div>
       </details>
       <div class="nav-resources">
-        <a href="main.pdf" target="_blank" rel="noopener">Paper <span class="nav-badge">PDF</span></a>
+        <a href="https://arxiv.org/abs/2610.03607" target="_blank" rel="noopener">Paper <span class="nav-badge">ARXIV</span></a>
         <span class="nav-unavailable" role="link" aria-disabled="true" title="Code repository coming soon">Code <span class="nav-badge">COMING SOON</span></span>
         <a href="#bibtex">BibTeX</a>
       </div>
@@ -256,10 +256,13 @@
       </section>
       <section class="experiment-chapter" id="real-generalization" aria-labelledby="generalization-title">
         <div class="experiment-copy"><p class="eyebrow">BEYOND THE TRAINING SETTING</p><h3 id="generalization-title">Real-world generalization</h3></div>
-        <div class="generalization-placeholder">Demonstrations coming soon.</div>
+        <div class="generalization-gallery">
+          <div class="gen-toolbar"><span class="gen-label">SELECT TASK</span><div class="gen-tasks" role="group" aria-label="Generalization task"><button type="button" data-task="pack3" aria-pressed="true">Pack Objects</button><button type="button" data-task="stack" aria-pressed="false">Stack Cups</button><button type="button" data-task="insertion" aria-pressed="false">Battery Insertion</button><button type="button" data-task="assembly" aria-pressed="false">Battery Assembly</button></div></div>
+          <div class="gen-layout"><div class="gen-previews" role="group" aria-label="Generalization videos"></div><div class="gen-main"><video class="gen-video" controls muted playsinline loop preload="none" aria-label="Selected generalization video"></video><div class="gen-description" aria-live="polite"><h4 class="gen-title"></h4><p class="gen-type"></p></div><p class="gen-error" hidden>Video could not load. <a href="#">Open the video directly ↗</a></p></div></div>
+        </div>
       </section>
     </section>
-    <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction knowledge from human experience.</p></div><a class="paper-link" href="main.pdf" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>
+    <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction knowledge from human experience.</p></div><a class="paper-link" href="https://arxiv.org/abs/2610.03607" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>
     <section class="section wrap abstract-section" id="bibtex">
       <p class="eyebrow">CITE THIS WORK</p><div class="citation-heading"><h2>BibTeX</h2><button type="button" id="copy-citation">Copy</button></div>
       <p class="citation-note">Manuscript citation. Publication details will be added when available.</p>
@@ -277,6 +280,6 @@
     <video id="expanded-demo" controls playsinline preload="none" aria-labelledby="demo-dialog-title"></video>
     <p class="demo-playback-status" role="status"></p>
   </dialog>
-  <footer class="wrap"><a class="wordmark" href="#home">WING.</a><p>World Action Learning via INteraction-Centric Spectral Latent Guidance</p><a href="main.pdf">Paper ↗</a></footer>
+  <footer class="wrap"><a class="wordmark" href="#home">WING.</a><p>World Action Learning via INteraction-Centric Spectral Latent Guidance</p><a href="https://arxiv.org/abs/2610.03607" target="_blank" rel="noopener">Paper ↗</a></footer>
 </body>
 </html>
