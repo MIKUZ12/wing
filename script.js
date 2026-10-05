@@ -505,3 +505,33 @@ updateContents();
   });
   selectTask(task);
 })();
+
+// Reveal editorial blocks once as they enter the reading viewport.
+(() => {
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches || !('IntersectionObserver' in window)) return;
+  const blocks = [...document.querySelectorAll('.reading-content > section > :not(section):not(.method-story), .reading-content > section > .benchmark-comparison, .reading-content > section > .demo-gallery, .method-chapter > *, .experiment-chapter > *')];
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) reveal(entry.target);
+    });
+  }, {threshold: 0, rootMargin: '0px 0px -40px 0px'});
+  function reveal(block) {
+    block.classList.remove('scroll-reveal-pending');
+    observer.unobserve(block);
+  }
+  blocks.forEach(block => {
+    // Leave the current viewport and restored scroll positions immediately readable.
+    if (block.getBoundingClientRect().top < innerHeight) return;
+    block.classList.add('scroll-reveal', 'scroll-reveal-pending');
+    observer.observe(block);
+  });
+  document.addEventListener('focusin', event => {
+    const block = event.target.closest('.scroll-reveal-pending');
+    if (block) reveal(block);
+  });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) { blocks.forEach(reveal); observer.disconnect(); }
+  });
+  window.addEventListener('beforeprint', () => { blocks.forEach(reveal); observer.disconnect(); });
+})();
