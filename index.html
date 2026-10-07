@@ -265,11 +265,15 @@
     <section class="section wrap abstract-section" id="abstract"><p class="eyebrow">THE RESEARCH</p><h2>Abstract</h2><div class="abstract-copy" id="abstract-copy"><p>Learning general-purpose robot policies requires large-scale real-world interaction data, yet collecting robot demonstrations through teleoperation remains expensive and difficult to scale. Egocentric videos provide a rich source of human interaction experience that shares task-relevant semantics with robotic manipulation, creating an opportunity to align human and robot actions in a shared latent action space for cross-embodiment knowledge transfer. However, existing latent action approaches typically infer actions through reconstruction between consecutive frames, which are not inherently interaction-centric and can be dominated by nuisance variations, such as ego-camera motion. Moreover, although human interactions and robot actions share interaction semantics, they often exhibit substantially different temporal dynamics, making direct transfer to robot policies challenging. To address these challenges, we propose WING (World Action Learning via INteraction-Centric Spectral Latent Guidance), a framework for transferring interaction knowledge from egocentric videos to robot policies. First, we introduce an interaction–motion decoupling mechanism that separates interaction-relevant signals from task-irrelevant motion and selectively distills the interaction-centric components into latent actions. Second, motivated by the observation that cross-embodiment task semantics are primarily encoded in slowly varying temporal structures, we identify shared components between egocentric latent actions and robot behaviors in the spectral domain and use them as guidance for action generation at inference time. With these designs, WING achieves average success rates of 99.20% on LIBERO, 93.80% on RoboTwin 2.0, and 57.7% on RoboCasa–GR1, while also demonstrating strong performance across four real-world tasks under diverse generalization settings. These results demonstrate that WING can effectively distill embodied interaction knowledge from large-scale egocentric videos and transfer it to robot control, providing a scalable pathway for acquiring physical interaction <span class="keep-phrase">knowledge from human experience.</span></p></div><a class="paper-link" href="https://arxiv.org/abs/2610.03607" target="_blank" rel="noopener">Read the full paper <span aria-hidden="true">↗</span></a></section>
     <section class="section wrap abstract-section" id="bibtex">
       <p class="eyebrow">CITE THIS WORK</p><div class="citation-heading"><h2>BibTeX</h2><button type="button" id="copy-citation">Copy</button></div>
-      <p class="citation-note">Manuscript citation. Publication details will be added when available.</p>
-      <pre class="citation"><code id="citation-text">@misc{liu_wing,
-  title = {{WING}: World Action Learning via {INteraction-Centric} Spectral Latent Guidance},
-  author = {Liu, Zhiming and Miao, Yikun and Chen, Ying and Yin, Hongrui and Zhu, Fangqi and Pang, Xiaoyi and Shou, Quanxin and Yan, Zhengyang and Wang, Haodong and Guo, Song},
-  note = {Manuscript}
+      <p class="citation-note">arXiv:2610.03607 · 2026</p>
+      <pre class="citation"><code id="citation-text">@misc{liu2026worldactionlearninginteractioncentric,
+      title={World Action Learning via Interaction-Centric Spectral Latent Guidance},
+      author={Zhiming Liu and Yikun Miao and Ying Chen and Hongrui Yin and Fangqi Zhu and Xiaoyi Pang and Quanxin Shou and Zhengyang Yan and Haodong Wang and Song Guo},
+      year={2026},
+      eprint={2610.03607},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2610.03607},
 }</code></pre><p class="copy-status" id="copy-status" role="status"></p>
     </section>
       </div>
