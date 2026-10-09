@@ -482,6 +482,7 @@ body:has(.demo-dialog[open]){overflow:hidden}
 
 @font-face{font-family:'WING Display';font-style:normal;font-weight:200 900;font-display:swap;src:url('assets/fonts/source-serif-4-display.ttf') format('truetype')}
 .hero-content h1{font-family:'WING Display','Source Serif 4',Georgia,serif;font-weight:500;letter-spacing:-.025em}
+.hero-wing{font-family:inherit;font-weight:700;font-size:1.08em}
 .hero-title-italic{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:-.045em;color:#a8cde2}
 .hero-content .tagline{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:#a8cde2}
 .hero-content .authors,.hero-content .affiliations,.hero-content .author-notes{font-family:'Source Serif 4',Georgia,serif;font-optical-sizing:auto}
