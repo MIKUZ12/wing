@@ -483,6 +483,10 @@ body:has(.demo-dialog[open]){overflow:hidden}
 
 @font-face{font-family:'WING Display';font-style:normal;font-weight:200 900;font-display:swap;src:url('assets/fonts/source-serif-4-display.ttf') format('truetype')}
 .hero-wing{font-family:'WING Display','Source Serif 4',Georgia,serif;font-weight:700;font-optical-sizing:none;font-variation-settings:"opsz" 36;font-size:1.12em;letter-spacing:-.008em}
+.hero-content h1{font-family:'WING Display','Source Serif 4',Georgia,serif;font-weight:500;letter-spacing:-.025em}
+.hero-title-italic{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:-.045em;color:#d9efff}
+.hero-content .tagline{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+@media(max-width:1100px){.hero-title-italic{color:#286e96}}
 
 /* A gentle cue to continue reading. */
 @keyframes scroll-arrow-float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
